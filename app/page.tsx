@@ -8,41 +8,40 @@ export default async function HomePage() {
   } = await supabase.auth.getUser();
 
   return (
-    <main className="landing-wrap">
-      <section className="landing-hero">
-        <div className="landing-badge-row">
-          <span className="landing-chip">AI Kurukshetra Project</span>
-          <span className="landing-chip">Next.js + Supabase + Vercel</span>
-        </div>
-        <h1>Modern Pathology Information System</h1>
-        <p>
-          Manage patient intake, orders, samples, results, reports, billing, and role-based user access in one secure
-          lab platform.
-        </p>
+    <main className="landing-shell">
+      <section className="landing-glass">
+        <header className="landing-topbar">
+          <Link href="/" className="landing-logo">
+            <img src="/laboratory-microscope-icon.svg" alt="PathologyLab Pro" />
+            <span>PathologyLab Pro</span>
+          </Link>
 
-        <div className="landing-actions">
-          <Link href="/login" className="button">Login</Link>
-          <Link href="/signup" className="button button-secondary">Sign Up</Link>
-          {user ? <Link href="/overview" className="button button-ghost">Go to Dashboard</Link> : null}
-        </div>
-      </section>
+          <nav className="landing-nav-pill">
+            <a href="#home">Home</a>
+            <a href="#about">About us</a>
+            <a href="#labs">For Pathologies</a>
+            <a href="#facilities">For Facilities</a>
+            <a href="#features">Features</a>
+          </nav>
 
-      <section className="landing-grid">
-        <article className="landing-card">
-          <h3>Role-Based Access</h3>
-          <p>Admin, Receptionist, Sample Collection, Technician, Pathologist, and Billing modules with guarded access.</p>
-          <span className="status-badge status-released">Secure</span>
-        </article>
-        <article className="landing-card">
-          <h3>Real-Time Workflow</h3>
-          <p>Create cases, track collection, enter results, and release reports with live Supabase-backed records.</p>
-          <span className="status-badge status-processing">Live Data</span>
-        </article>
-        <article className="landing-card">
-          <h3>Finance Visibility</h3>
-          <p>Capture payments, monitor receivables, and review business metrics using searchable and sortable grids.</p>
-          <span className="status-badge status-pending_collection">Insights</span>
-        </article>
+          <div className="landing-auth-pill">
+            <Link href="/login">Log in</Link>
+            <Link href="/signup" className="landing-register">Register</Link>
+          </div>
+        </header>
+
+        <section className="landing-hero-modern" id="home">
+          <div className="landing-hero-orb">
+            <img src="/laboratory-microscope-icon.svg" alt="Lab icon" />
+          </div>
+          <h1>Maximize Your Lab&apos;s Revenue</h1>
+          <p>With access to additional case volume and robust lab operations in a single modern platform.</p>
+
+          <div className="landing-cta-row">
+            {user ? <Link href="/overview" className="landing-cta-primary">Go Dashboard</Link> : <Link href="/signup" className="landing-cta-primary">Get started</Link>}
+            <Link href="/login" className="landing-cta-secondary">Learn more</Link>
+          </div>
+        </section>
       </section>
     </main>
   );
