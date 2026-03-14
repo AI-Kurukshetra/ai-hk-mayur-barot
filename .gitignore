@@ -15,6 +15,7 @@ out/
 # logs
 *.log
 dev-server.log
+*.tsbuildinfo
 
 # OS
 .DS_Store

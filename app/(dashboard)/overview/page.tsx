@@ -1,4 +1,5 @@
 import { requirePageRoles } from "@/lib/auth/permissions";
+import { getOverviewSnapshot } from "@/lib/overview/service";
 
 const overviewRoles = [
   "super_admin",
@@ -10,36 +11,33 @@ const overviewRoles = [
   "finance",
 ] as const;
 
-const cards = [
-  { label: "Total Income", value: "Rs 2,21,250" },
-  { label: "Collection Charges", value: "Rs 0" },
-  { label: "Expenses", value: "Rs 0" },
-  { label: "Net Income", value: "Rs 2,21,250" },
-];
-
-const rows = [
-  ["#1203", "Rosie", "Self", "09/06/2025", "Rs 2,600", "Cash"],
-  ["#1202", "Saran", "Dr. Lalitha", "09/06/2025", "Rs 2,600", "Cash"],
-  ["#1201", "Lara", "Dr. Uday M", "09/06/2025", "Rs 1,550", "Cash"],
-  ["#1200", "Everette", "Dr. Lalitha", "09/06/2025", "Rs 2,700", "Cash"],
-];
-
 export default async function OverviewPage() {
   await requirePageRoles([...overviewRoles]);
+  const snapshot = await getOverviewSnapshot();
 
   return (
     <section className="grid page-gap">
       <header className="section-head">
-        <h2>Daily business</h2>
+        <h2>Business Snapshot</h2>
       </header>
 
       <div className="stats-grid">
-        {cards.map((card) => (
-          <article key={card.label} className="stat-card">
-            <p>{card.label}</p>
-            <h3>{card.value}</h3>
-          </article>
-        ))}
+        <article className="stat-card">
+          <p>Total Billed</p>
+          <h3>Rs {snapshot.total_billed.toFixed(0)}</h3>
+        </article>
+        <article className="stat-card">
+          <p>Total Collected</p>
+          <h3>Rs {snapshot.total_collected.toFixed(0)}</h3>
+        </article>
+        <article className="stat-card">
+          <p>Total Due</p>
+          <h3>Rs {snapshot.total_due.toFixed(0)}</h3>
+        </article>
+        <article className="stat-card">
+          <p>Total Orders</p>
+          <h3>{snapshot.order_count}</h3>
+        </article>
       </div>
 
       <div className="content-grid two-col">
@@ -58,22 +56,32 @@ export default async function OverviewPage() {
                 </tr>
               </thead>
               <tbody>
-                {rows.map((row) => (
-                  <tr key={row[0]}>
-                    {row.map((cell) => <td key={cell}>{cell}</td>)}
+                {snapshot.recent_payments.map((row) => (
+                  <tr key={row.id}>
+                    <td>{row.order_no}</td>
+                    <td>{row.patient_name}</td>
+                    <td>{row.referred_by}</td>
+                    <td>{new Date(row.paid_at).toLocaleDateString("en-IN")}</td>
+                    <td>Rs {row.amount.toFixed(0)}</td>
+                    <td>{row.mode}</td>
                   </tr>
                 ))}
+                {snapshot.recent_payments.length === 0 ? (
+                  <tr>
+                    <td colSpan={6}>No transactions available.</td>
+                  </tr>
+                ) : null}
               </tbody>
             </table>
           </div>
         </section>
 
         <section className="card panel">
-          <h3 className="panel-title">Help</h3>
+          <h3 className="panel-title">Actions</h3>
           <ul className="help-list">
-            <li>How total income is calculated?</li>
-            <li>How collection charges work?</li>
-            <li>How transaction page works?</li>
+            <li>Register patients and create new orders from the sidebar.</li>
+            <li>Collect payments in Billing to update totals instantly.</li>
+            <li>Release reports after all results are entered and reviewed.</li>
           </ul>
         </section>
       </div>
