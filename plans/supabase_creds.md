@@ -1,0 +1,6 @@
+Project URL = https://bgexnkfvwpzlnsptznta.supabase.co
+
+Publishable key = sb_publishable_zPoFeVtnurNGj-jQ3TvfOA_eijYycmB
+
+Anon Key = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnZXhua2Z2d3B6bG5zcHR6bnRhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0MTkyNjIsImV4cCI6MjA4ODk5NTI2Mn0.MjEeqWEFUQIzx7RCRUpCcCNjQlM8Pkbu3j3J12_9BGg
+
