@@ -54,24 +54,35 @@ export default function SignupPage() {
 
   return (
     <main className="login-wrap">
-      <section className="login-card glass-card">
-        <div className="login-brand-row"><img src="/laboratory-microscope-icon.svg" alt="PathologyLab Pro" className="auth-logo" /><div className="login-brand">PathologyLab Pro</div></div>
-        <h1>Create account</h1>
+      <section className="auth-split-card">
+        <div className="auth-left">
+          <div className="login-brand-row"><img src="/laboratory-microscope-icon.svg" alt="PathologyLab Pro" className="auth-logo" /><div className="login-brand">PathologyLab Pro</div></div>
+          <h1>Create account</h1>
+          <p className="auth-subline">Register your team member with role-based access.</p>
 
-        <form className="auth-form" onSubmit={onSubmit} noValidate>
-          <fieldset className={loading ? "form-loading" : ""} disabled={loading}>
-            <label>Full Name<input type="text" value={fullName} onChange={(e) => setFullName(e.target.value)} />{errors.fullName ? <span className="field-error">{errors.fullName}</span> : null}</label>
-            <label>Email<input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />{errors.email ? <span className="field-error">{errors.email}</span> : null}</label>
-            <label>Role<select value={role} onChange={(e) => setRole(e.target.value as typeof role)}><option value="receptionist">Receptionist</option><option value="phlebotomist">Sample Collection Staff</option><option value="technician">Lab Technician</option><option value="pathologist">Pathologist / Doctor</option><option value="finance">Billing / Accounts</option></select></label>
-            <label>Password<input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />{errors.password ? <span className="field-error">{errors.password}</span> : null}</label>
-            <label>Confirm Password<input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />{errors.confirmPassword ? <span className="field-error">{errors.confirmPassword}</span> : null}</label>
-            <button className="button login-btn" type="submit" disabled={loading}>{loading ? "Creating account..." : "Create account"}</button>
-          </fieldset>
-          {loading ? <div className="form-loading-row"><span className="inline-loader" /> <span>Creating account...</span></div> : null}
-        </form>
+          <form className="auth-form" onSubmit={onSubmit} noValidate>
+            <fieldset className={loading ? "form-loading" : ""} disabled={loading}>
+              <label>Full Name<input type="text" value={fullName} onChange={(e) => setFullName(e.target.value)} />{errors.fullName ? <span className="field-error">{errors.fullName}</span> : null}</label>
+              <label>Email<input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />{errors.email ? <span className="field-error">{errors.email}</span> : null}</label>
+              <label>Role<select value={role} onChange={(e) => setRole(e.target.value as typeof role)}><option value="receptionist">Receptionist</option><option value="phlebotomist">Sample Collection Staff</option><option value="technician">Lab Technician</option><option value="pathologist">Pathologist / Doctor</option><option value="finance">Billing / Accounts</option></select></label>
+              <label>Password<input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />{errors.password ? <span className="field-error">{errors.password}</span> : null}</label>
+              <label>Confirm Password<input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />{errors.confirmPassword ? <span className="field-error">{errors.confirmPassword}</span> : null}</label>
+              <button className="button login-btn" type="submit" disabled={loading}>{loading ? "Creating account..." : "Create account"}</button>
+            </fieldset>
+            {loading ? <div className="form-loading-row"><span className="inline-loader" /> <span>Creating account...</span></div> : null}
+          </form>
 
-        <p className="auth-switch">Already have an account? <Link href="/login">Sign in</Link></p>
-        {formError ? <p className="auth-error">{formError}</p> : null}
+          <p className="auth-switch">Already have an account? <Link href="/login">Sign in</Link></p>
+          {formError ? <p className="auth-error">{formError}</p> : null}
+        </div>
+
+        <aside className="auth-right">
+          <div className="auth-right-panel">
+            <img src="/laboratory-microscope-icon.svg" alt="Microscope" />
+            <h3>Role-Based Access</h3>
+            <p>Assign user roles instantly for reception, sampling, technicians, doctors, and billing teams.</p>
+          </div>
+        </aside>
       </section>
     </main>
   );

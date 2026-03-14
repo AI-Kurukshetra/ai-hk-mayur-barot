@@ -1,12 +1,12 @@
 import Link from "next/link";
-import { createServerSupabaseClient } from "@/lib/supabase/server";
 
-export default async function HomePage() {
-  const supabase = await createServerSupabaseClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+type Props = {
+  title: string;
+  subtitle: string;
+  points: string[];
+};
 
+export function MarketingPage({ title, subtitle, points }: Props) {
   return (
     <main className="landing-shell">
       <section className="landing-glass">
@@ -31,16 +31,20 @@ export default async function HomePage() {
           </div>
         </header>
 
-        <section className="landing-hero-modern" id="home">
-          <div className="landing-hero-orb">
-            <img src="/laboratory-microscope-icon.svg" alt="Lab icon" />
-          </div>
-          <h1>Maximize Your Lab&apos;s Revenue</h1>
-          <p>With access to additional case volume and robust lab operations in a single modern platform.</p>
+        <section className="marketing-content-wrap">
+          <div className="marketing-content-card">
+            <h1>{title}</h1>
+            <p>{subtitle}</p>
+            <ul>
+              {points.map((point) => (
+                <li key={point}>{point}</li>
+              ))}
+            </ul>
 
-          <div className="landing-cta-row">
-            {user ? <Link href="/overview" className="landing-cta-primary">Go Dashboard</Link> : <Link href="/signup" className="landing-cta-primary">Get started</Link>}
-            <Link href="/learn-more" className="landing-cta-secondary">Learn more</Link>
+            <div className="landing-cta-row">
+              <Link href="/signup" className="landing-cta-primary">Get started</Link>
+              <Link href="/learn-more" className="landing-cta-secondary">Learn more</Link>
+            </div>
           </div>
         </section>
       </section>

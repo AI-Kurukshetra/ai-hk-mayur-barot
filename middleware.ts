@@ -2,6 +2,8 @@ import { createServerClient } from "@supabase/ssr";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
+const PUBLIC_ROUTES = new Set(["/", "/about", "/for-pathologies", "/for-facilities", "/features", "/blog", "/learn-more"]);
+
 function withSessionCookies(base: NextResponse, target: NextResponse) {
   for (const cookie of base.cookies.getAll()) {
     target.cookies.set(cookie);
@@ -43,7 +45,7 @@ export async function middleware(request: NextRequest) {
   }
 
   if (!user && !isAuthPage) {
-    if (pathname === "/") {
+    if (PUBLIC_ROUTES.has(pathname)) {
       return response;
     }
     const loginUrl = new URL("/login", request.url);

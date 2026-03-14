@@ -44,22 +44,33 @@ export default function LoginPage() {
 
   return (
     <main className="login-wrap">
-      <section className="login-card glass-card">
-        <div className="login-brand-row"><img src="/laboratory-microscope-icon.svg" alt="PathologyLab Pro" className="auth-logo" /><div className="login-brand">PathologyLab Pro</div></div>
-        <h1>Sign in</h1>
+      <section className="auth-split-card">
+        <div className="auth-left">
+          <div className="login-brand-row"><img src="/laboratory-microscope-icon.svg" alt="PathologyLab Pro" className="auth-logo" /><div className="login-brand">PathologyLab Pro</div></div>
+          <h1>Sign in</h1>
+          <p className="auth-subline">Access your pathology workspace securely.</p>
 
-        <form className="auth-form" onSubmit={onSubmit} noValidate>
-          <fieldset className={loading ? "form-loading" : ""} disabled={loading}>
-            <label>Email<input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />{errors.email ? <span className="field-error">{errors.email}</span> : null}</label>
-            <label>Password<input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />{errors.password ? <span className="field-error">{errors.password}</span> : null}</label>
-            <button className="button login-btn" type="submit" disabled={loading}>{loading ? "Signing in..." : "Sign in"}</button>
-          </fieldset>
-          {loading ? <div className="form-loading-row"><span className="inline-loader" /> <span>Validating credentials...</span></div> : null}
-        </form>
+          <form className="auth-form" onSubmit={onSubmit} noValidate>
+            <fieldset className={loading ? "form-loading" : ""} disabled={loading}>
+              <label>Email<input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />{errors.email ? <span className="field-error">{errors.email}</span> : null}</label>
+              <label>Password<input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />{errors.password ? <span className="field-error">{errors.password}</span> : null}</label>
+              <button className="button login-btn" type="submit" disabled={loading}>{loading ? "Signing in..." : "Sign in"}</button>
+            </fieldset>
+            {loading ? <div className="form-loading-row"><span className="inline-loader" /> <span>Validating credentials...</span></div> : null}
+          </form>
 
-        <p className="auth-switch">New user? <Link href="/signup">Create account</Link></p>
-        {signupSuccess ? <p className="auth-success">Account created. Please sign in.</p> : null}
-        {formError ? <p className="auth-error">{formError}</p> : null}
+          <p className="auth-switch">New user? <Link href="/signup">Create account</Link></p>
+          {signupSuccess ? <p className="auth-success">Account created. Please sign in.</p> : null}
+          {formError ? <p className="auth-error">{formError}</p> : null}
+        </div>
+
+        <aside className="auth-right">
+          <div className="auth-right-panel">
+            <img src="/laboratory-microscope-icon.svg" alt="Microscope" />
+            <h3>Smart Lab Operations</h3>
+            <p>Track cases, tests, billing, and reports with one modern pathology system.</p>
+          </div>
+        </aside>
       </section>
     </main>
   );
