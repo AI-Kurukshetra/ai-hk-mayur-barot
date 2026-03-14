@@ -8,6 +8,7 @@ import type { ComponentType, SVGProps } from "react";
 import { signOutAction } from "@/lib/auth/actions";
 import type { AppRole } from "@/lib/auth/roles";
 import { DashboardUiProvider, useDashboardUi } from "@/components/layout/dashboard-ui-context";
+import { LabAiAssistant } from "@/components/assistant/lab-ai-assistant";
 import {
   IconBell,
   IconClipboard,
@@ -318,6 +319,8 @@ function DashboardShellInner({
           <div className="loader-card"><span className="inline-loader" /> <p>Saving, please wait...</p></div>
         </div>
       ) : null}
+
+      <LabAiAssistant />
     </div>
   );
 }

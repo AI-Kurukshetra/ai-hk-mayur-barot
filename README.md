@@ -50,6 +50,8 @@ npm install
   - `NEXT_PUBLIC_SUPABASE_URL`
   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
   - `SUPABASE_SERVICE_ROLE_KEY`
+  - `OPENAI_API_KEY` (for AI assistant responses)
+  - optional: `OPENAI_MODEL=gpt-4o-mini`
   - optional: `DEFAULT_TENANT_CODE=DEFAULT`
 
 3. Run app:
@@ -124,6 +126,7 @@ Default password for all seeded users:
 - Form validation messages visible and clear
 - Full-page blocking loader while save/update actions execute
 - Responsive checks (desktop + mobile)
+- AI assistant chat opens from dashboard and answers using live data context
 
 ## Important Docs
 
@@ -132,4 +135,3 @@ Default password for all seeded users:
 - Testing strategy: `plans/08-testing-qa.md`
 - Progress log: `doc/PROGRESS.md`
 - Task checklist: `doc/TASKS.md`
-
