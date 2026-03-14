@@ -1,6 +1,7 @@
 import { requirePageRoles } from "@/lib/auth/permissions";
 import { getOverviewSnapshot } from "@/lib/overview/service";
 import { OverviewTransactions } from "@/app/(dashboard)/overview/_components/overview-transactions";
+import { OverviewCharts } from "@/app/(dashboard)/overview/_components/overview-charts";
 
 const overviewRoles = [
   "super_admin",
@@ -48,12 +49,8 @@ export default async function OverviewPage() {
         </section>
 
         <section className="card panel">
-          <h3 className="panel-title">Actions</h3>
-          <ul className="help-list">
-            <li>Register patients and create new orders from the sidebar.</li>
-            <li>Collect payments in Billing to update totals instantly.</li>
-            <li>Release reports after all results are entered and reviewed.</li>
-          </ul>
+          <h3 className="panel-title">Analytics</h3>
+          <OverviewCharts rows={snapshot.recent_payments} />
         </section>
       </div>
     </section>

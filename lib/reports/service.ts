@@ -16,6 +16,19 @@ export type ReportQueueRow = {
   latest_report_path: string | null;
 };
 
+function calculateAgeLabel(dob: string | null): string {
+  if (!dob) return "-";
+  const birthDate = new Date(dob);
+  if (Number.isNaN(birthDate.getTime())) return "-";
+  const today = new Date();
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const monthDiff = today.getMonth() - birthDate.getMonth();
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+    age -= 1;
+  }
+  return age < 0 ? "-" : `${age} YRS`;
+}
+
 async function ensureReportBucket() {
   const supabase = createAdminSupabaseClient();
   const bucketsRes = await supabase.storage.listBuckets();
@@ -109,7 +122,7 @@ export async function releaseOrderReport(input: ReleaseReportInput): Promise<{ r
 
   const orderRes = await supabase
     .from("orders")
-    .select("id, order_no, patient:patients!orders_patient_id_fkey(full_name)")
+    .select("id, order_no, ordered_at, collected_at, released_at, referring_doctor, patient:patients!orders_patient_id_fkey(full_name, patient_code, dob, sex, address)")
     .eq("tenant_id", tenant.id)
     .eq("id", input.order_id)
     .maybeSingle();
@@ -176,8 +189,19 @@ export async function releaseOrderReport(input: ReleaseReportInput): Promise<{ r
 
   const patient = Array.isArray(orderRes.data.patient) ? orderRes.data.patient[0] : orderRes.data.patient;
   const pdfBytes = await buildReportPdf({
+    lab_name: "PathologyLab Pro",
+    lab_phone: "+91 90000 00000",
+    lab_email: "info@pathologylabpro.com",
     order_no: orderRes.data.order_no as string,
+    patient_code: (patient?.patient_code as string) ?? "-",
     patient_name: (patient?.full_name as string) ?? "-",
+    patient_age: calculateAgeLabel((patient?.dob as string | null) ?? null),
+    patient_sex: ((patient?.sex as string | null) ?? "-").toUpperCase(),
+    referring_doctor: (orderRes.data.referring_doctor as string | null) ?? "Self",
+    patient_address: (patient?.address as string | null) ?? "-",
+    registered_at_iso: (orderRes.data.ordered_at as string) ?? new Date().toISOString(),
+    collected_at_iso: (orderRes.data.collected_at as string | null) ?? (orderRes.data.ordered_at as string) ?? new Date().toISOString(),
+    released_at_iso: (orderRes.data.released_at as string | null) ?? new Date().toISOString(),
     generated_at_iso: new Date().toISOString(),
     items: reportItems,
   });
@@ -249,7 +273,7 @@ export async function getReportDownloadUrlByOrder(orderId: string): Promise<{ pa
   if (signedRes.error && String(signedRes.error.message).toLowerCase().includes("object not found")) {
     const orderRes = await supabase
       .from("orders")
-      .select("order_no, patient:patients!orders_patient_id_fkey(full_name)")
+      .select("order_no, ordered_at, collected_at, released_at, referring_doctor, patient:patients!orders_patient_id_fkey(full_name, patient_code, dob, sex, address)")
       .eq("tenant_id", tenant.id)
       .eq("id", orderId)
       .maybeSingle();
@@ -296,8 +320,19 @@ export async function getReportDownloadUrlByOrder(orderId: string): Promise<{ pa
 
     const patient = Array.isArray(orderRes.data.patient) ? orderRes.data.patient[0] : orderRes.data.patient;
     const pdfBytes = await buildReportPdf({
+      lab_name: "PathologyLab Pro",
+      lab_phone: "+91 90000 00000",
+      lab_email: "info@pathologylabpro.com",
       order_no: orderRes.data.order_no as string,
+      patient_code: (patient?.patient_code as string) ?? "-",
       patient_name: (patient?.full_name as string) ?? "-",
+      patient_age: calculateAgeLabel((patient?.dob as string | null) ?? null),
+      patient_sex: ((patient?.sex as string | null) ?? "-").toUpperCase(),
+      referring_doctor: (orderRes.data.referring_doctor as string | null) ?? "Self",
+      patient_address: (patient?.address as string | null) ?? "-",
+      registered_at_iso: (orderRes.data.ordered_at as string) ?? new Date().toISOString(),
+      collected_at_iso: (orderRes.data.collected_at as string | null) ?? (orderRes.data.ordered_at as string) ?? new Date().toISOString(),
+      released_at_iso: (orderRes.data.released_at as string | null) ?? new Date().toISOString(),
       generated_at_iso: new Date().toISOString(),
       items: reportItems,
     });
