@@ -201,7 +201,7 @@ function DashboardShellInner({
       <div className="dashboard-frame">
         <aside className="dashboard-sidebar modern-sidebar">
           <div className="brand-top">
-            <img src="/microscope.png" alt="PathologyLab Pro" className="brand-logo-img" />
+            <img src="/laboratory-microscope-icon.svg" alt="PathologyLab Pro" className="brand-logo-img" />
             <div>
               <p className="brand-pill">PathologyLab Pro</p>
               <p className="sidebar-label">{roleLabel[safeRole]}</p>
@@ -329,4 +329,3 @@ export function DashboardShell(props: { children: React.ReactNode; userEmail: st
     </DashboardUiProvider>
   );
 }
-

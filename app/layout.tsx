@@ -5,9 +5,9 @@ export const metadata: Metadata = {
   title: "PathologyLab Pro",
   description: "LIS built with Next.js + Supabase + Vercel",
   icons: {
-    icon: "/microscope-logo.svg",
-    shortcut: "/microscope-logo.svg",
-    apple: "/microscope-logo.svg",
+    icon: "/laboratory-microscope-icon.svg",
+    shortcut: "/laboratory-microscope-icon.svg",
+    apple: "/laboratory-microscope-icon.svg",
   },
 };
 

@@ -55,7 +55,7 @@ export default function SignupPage() {
   return (
     <main className="login-wrap">
       <section className="login-card glass-card">
-        <div className="login-brand-row"><img src="/microscope-logo.svg" alt="PathologyLab Pro" className="auth-logo" /><div className="login-brand">PathologyLab Pro</div></div>
+        <div className="login-brand-row"><img src="/laboratory-microscope-icon.svg" alt="PathologyLab Pro" className="auth-logo" /><div className="login-brand">PathologyLab Pro</div></div>
         <h1>Create account</h1>
 
         <form className="auth-form" onSubmit={onSubmit} noValidate>

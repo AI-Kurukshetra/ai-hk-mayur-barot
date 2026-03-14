@@ -57,7 +57,7 @@ export async function getOverviewSnapshot(): Promise<OverviewSnapshot> {
         .eq("tenant_id", tenant.id)
         .in("order_id", orderIds)
         .order("paid_at", { ascending: false })
-        .limit(12)
+        .limit(300)
     : { data: [], error: null };
 
   if (paymentsRes.error) {

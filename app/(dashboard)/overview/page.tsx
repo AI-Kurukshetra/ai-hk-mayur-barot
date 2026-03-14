@@ -1,5 +1,6 @@
 import { requirePageRoles } from "@/lib/auth/permissions";
 import { getOverviewSnapshot } from "@/lib/overview/service";
+import { OverviewTransactions } from "@/app/(dashboard)/overview/_components/overview-transactions";
 
 const overviewRoles = [
   "super_admin",
@@ -43,37 +44,7 @@ export default async function OverviewPage() {
       <div className="content-grid two-col">
         <section className="card panel">
           <h3 className="panel-title">Transactions</h3>
-          <div className="table-wrap">
-            <table className="patients-table">
-              <thead>
-                <tr>
-                  <th>Reg No</th>
-                  <th>Patient</th>
-                  <th>Referred By</th>
-                  <th>Date</th>
-                  <th>Amount</th>
-                  <th>Mode</th>
-                </tr>
-              </thead>
-              <tbody>
-                {snapshot.recent_payments.map((row) => (
-                  <tr key={row.id}>
-                    <td>{row.order_no}</td>
-                    <td>{row.patient_name}</td>
-                    <td>{row.referred_by}</td>
-                    <td>{new Date(row.paid_at).toLocaleDateString("en-IN")}</td>
-                    <td>Rs {row.amount.toFixed(0)}</td>
-                    <td>{row.mode}</td>
-                  </tr>
-                ))}
-                {snapshot.recent_payments.length === 0 ? (
-                  <tr>
-                    <td colSpan={6}>No transactions available.</td>
-                  </tr>
-                ) : null}
-              </tbody>
-            </table>
-          </div>
+          <OverviewTransactions rows={snapshot.recent_payments} />
         </section>
 
         <section className="card panel">
