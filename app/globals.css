@@ -829,6 +829,12 @@ a { color: inherit; text-decoration: none; }
   margin-bottom: 10px;
 }
 
+.modal-head .icon-btn {
+  background: #f1f5ff;
+  color: #3656a4;
+  border: 1px solid #c8d7fb;
+}
+
 .modal-form {
   display: grid;
   gap: 8px;
