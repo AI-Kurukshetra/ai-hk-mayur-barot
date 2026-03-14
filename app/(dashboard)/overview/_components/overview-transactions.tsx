@@ -97,7 +97,7 @@ export function OverviewTransactions({ rows }: Props) {
                 <td>{row.referred_by}</td>
                 <td>{new Date(row.paid_at).toLocaleDateString("en-IN")}</td>
                 <td>Rs {row.amount.toFixed(0)}</td>
-                <td>{row.mode}</td>
+                <td><span className="mode-badge">{row.mode.replaceAll("_", " ")}</span></td>
               </tr>
             ))}
             {pageRows.length === 0 ? (

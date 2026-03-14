@@ -118,7 +118,7 @@ export function OrdersConsole({ patients, tests, initialOrders }: Props) {
         </div>
         <div className="patients-table-wrap">
           <table className="patients-table"><thead><tr><th>Order No</th><th>Patient</th><th>Priority</th><th>Items</th><th>Total</th><th>Status</th></tr></thead><tbody>
-            {pageRows.map((order) => <tr key={order.id}><td>{order.order_no}</td><td>{order.patient.patient_code} - {order.patient.full_name}</td><td>{order.priority}</td><td>{order.item_count}</td><td>Rs {Number(order.total_amount).toFixed(0)}</td><td>{order.status}</td></tr>)}
+            {pageRows.map((order) => <tr key={order.id}><td>{order.order_no}</td><td>{order.patient.patient_code} - {order.patient.full_name}</td><td><span className={`priority-badge priority-${order.priority}`}>{order.priority}</span></td><td>{order.item_count}</td><td>Rs {Number(order.total_amount).toFixed(0)}</td><td><span className={`status-badge status-${order.status}`}>{order.status}</span></td></tr>)}
             {pageRows.length === 0 ? <tr><td colSpan={6}>No orders found.</td></tr> : null}
           </tbody></table>
         </div>

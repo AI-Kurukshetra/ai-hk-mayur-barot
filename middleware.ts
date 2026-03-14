@@ -42,12 +42,10 @@ export async function middleware(request: NextRequest) {
     return response;
   }
 
-  if (pathname === "/") {
-    const target = user ? "/overview" : "/login";
-    return withSessionCookies(response, NextResponse.redirect(new URL(target, request.url)));
-  }
-
   if (!user && !isAuthPage) {
+    if (pathname === "/") {
+      return response;
+    }
     const loginUrl = new URL("/login", request.url);
     loginUrl.searchParams.set("next", `${pathname}${search}`);
     return withSessionCookies(response, NextResponse.redirect(loginUrl));

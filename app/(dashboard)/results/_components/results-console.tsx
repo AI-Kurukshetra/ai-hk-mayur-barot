@@ -111,7 +111,7 @@ export function ResultsConsole({ initialRows }: Props) {
               <tbody>
                 {pageRows.map((row) => (
                   <tr key={row.order_item_id} onClick={() => setSelectedId(row.order_item_id)} style={{ cursor: "pointer", background: selectedId === row.order_item_id ? "#eff6ff" : "transparent" }}>
-                    <td>{row.order_no}</td><td>{row.patient_name}</td><td>{row.test_name}</td><td>{row.result_status}</td>
+                    <td>{row.order_no}</td><td>{row.patient_name}</td><td>{row.test_name}</td><td><span className={`status-badge status-${row.result_status}`}>{row.result_status}</span></td>
                   </tr>
                 ))}
                 {pageRows.length === 0 ? <tr><td colSpan={4}>No results found.</td></tr> : null}
