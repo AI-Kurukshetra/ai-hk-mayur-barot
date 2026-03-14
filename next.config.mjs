@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   typedRoutes: true,
-  distDir: '.next-work',
+  distDir: process.env.VERCEL === "1" ? ".next" : ".next-work",
 };
 
 export default nextConfig;
